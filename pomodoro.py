@@ -1,5 +1,6 @@
 import time
 
+
 class PomodoroTimer:
     def __init__(self, work_time=25, break_time=5, track=4):
         self.work_time = work_time * 60
@@ -20,15 +21,22 @@ class PomodoroTimer:
                 self.switch_timer()
 
     def start_timer(self):
-        self.timer_status=True
+        self.timer_status = True
 
     def stop_timer(self):
         self.timer_status = False
 
+    def reset(self):
+        self.break_status = False
+        self.current_time = self.work_time
+        self.current_track = 0
+
     def switch_timer(self):
         if self.break_status:
+            self.break_status = False
             self.current_time = self.work_time
         else:
+            self.break_status = True
             self.current_time = self.break_time
 
     def count_track(self):
@@ -37,13 +45,17 @@ class PomodoroTimer:
 
     def get_timer_status(self):
         return {
-            "current_track":self.current_track,
-            "current_time":self.current_time,
-            "timer_status":self.timer_status,
-            "break_status":self.break_status
+            "current_track": self.current_track,
+            "current_time": self.current_time,
+            "timer_status": self.timer_status,
+            "break_status": self.break_status
         }
 
+    def set_work_time(self, work_time):
+        self.work_time = work_time * 60
 
 
+    def set_break_time(self, break_time):
+        self.break_time = break_time * 60
 
 
